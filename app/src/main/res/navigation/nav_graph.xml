@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.mcandle.dutyfree.ui.screens.HomeFragment"
+        android:label="Home" />
+
+    <fragment
+        android:id="@+id/nav_card"
+        android:name="com.mcandle.dutyfree.ui.screens.CardBleFragment"
+        android:label="Card">
+        <action
+            android:id="@+id/action_cardBleFragment_to_connectionCompleteFragment"
+            app:destination="@id/nav_connection_complete" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/nav_connection_complete"
+        android:name="com.mcandle.dutyfree.ui.screens.ConnectionCompleteFragment"
+        android:label="Connection Complete" />
+
+    <fragment
+        android:id="@+id/nav_payment_complete"
+        android:name="com.mcandle.dutyfree.ui.screens.PaymentCompleteFragment"
+        android:label="Payment Complete">
+        <action
+            android:id="@+id/action_paymentCompleteFragment_to_homeFragment"
+            app:destination="@id/nav_home"
+            app:popUpTo="@id/nav_home"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    
+    <fragment
+        android:id="@+id/nav_my"
+        android:name="com.mcandle.dutyfree.ui.screens.MyFragment"
+        android:label="My Profile" />
+</navigation>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core Colors -->
+    <color name="primary_navy">#0B1F3A</color>
+    <color name="success_green">#2E7D55</color>
+    <color name="navy_mid">#1A3558</color>
+    <color name="amber_warning">#B45309</color>
+    <color name="navy_light">#234878</color>
+    <color name="sky_blue_info">#0369A1</color>
+    <color name="gold_accent">#C9A84C</color>
+    <color name="surface_bg">#F5F7FA</color>
+    <color name="gold_light">#F0D080</color>
+    <color name="border_color">#E2E8F0</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#0B1F3A</color>
+    <color name="text_secondary">#64748B</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

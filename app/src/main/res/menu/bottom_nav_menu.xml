@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        android:title="홈" />
+    <item
+        android:id="@+id/nav_card"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="카드" />
+    <item
+        android:id="@+id/nav_benefit"
+        android:icon="@android:drawable/ic_menu_help"
+        android:title="혜택" />
+    <item
+        android:id="@+id/nav_my"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="MY" />
+</menu>

@@ -1,0 +1,371 @@
+package com.mcandle.dutyfree.gatt
+
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothGatt
+import android.bluetooth.BluetoothGattCharacteristic
+import android.bluetooth.BluetoothGattServer
+import android.bluetooth.BluetoothGattServerCallback
+import android.bluetooth.BluetoothGattService
+import android.bluetooth.BluetoothManager
+import android.bluetooth.BluetoothProfile
+import android.content.Context
+import android.util.Log
+import java.nio.charset.Charset
+
+/**
+ * GATT Server 관리 클래스
+ *
+ * 외부 Scanner가 연결하여 order_id를 write하면
+ * 콜백을 통해 MainActivity에 전달
+ */
+class GattServerManager(
+    private val context: Context,
+    private val callback: GattServerCallback
+) {
+
+    companion object {
+        private const val TAG = "GattServerManager"
+    }
+
+    interface GattServerCallback {
+        /**
+         * GATT Server와 Service가 준비 완료되었을 때 호출
+         * 이 콜백 이후에 BLE Advertise를 시작해야 함
+         *
+         * @param success Service 등록 성공 여부
+         */
+        /**
+         * GATT Server와 Service가 준비 완료되었을 때 호출
+         * 이 콜백 이후에 BLE Advertise를 시작해야 함
+         *
+         * @param success Service 등록 성공 여부
+         * @param errorMessage 실패 시 에러 메시지
+         */
+        fun onGattServerReady(success: Boolean, errorMessage: String? = null)
+
+        /**
+         * AT+CONNECT 명령어를 수신했을 때 호출
+         */
+        fun onConnectCommandReceived(device: BluetoothDevice)
+
+        /**
+         * AT+DISCONNECT 명령어를 수신했을 때 호출
+         */
+        fun onDisconnectCommandReceived(device: BluetoothDevice)
+
+        /**
+         * Order 데이터가 수신되었을 때 호출
+         *
+         * @param orderId 주문 ID
+         * @param additionalData 추가 데이터 (phone, amount 등)
+         */
+        fun onOrderReceived(orderId: String, additionalData: Map<String, String>?)
+
+        /**
+         * 클라이언트가 연결되었을 때 호출
+         */
+        fun onClientConnected(device: BluetoothDevice)
+
+        /**
+         * 클라이언트가 연결 해제되었을 때 호출
+         */
+        fun onClientDisconnected(device: BluetoothDevice)
+    }
+
+    private var bluetoothGattServer: BluetoothGattServer? = null
+    private val bluetoothManager: BluetoothManager =
+        context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+    private val bluetoothAdapter: BluetoothAdapter? = bluetoothManager.adapter
+
+    private var responseCharacteristic: BluetoothGattCharacteristic? = null
+    
+    // 추가된 변수: 고객의 여권/멤버십 정보 등 통합 패킷 데이터
+    private var unifiedPacketData: ByteArray? = null
+
+    /**
+     * VPOS가 연결 후 Read 요청 시 전달할 통합 패킷(Unified Packet) 설정
+     */
+    fun setUnifiedPacket(packet: ByteArray) {
+        this.unifiedPacketData = packet
+        responseCharacteristic?.value = packet
+        Log.d(TAG, "Unified packet set in characteristic")
+    }
+
+    /**
+     * GATT Server 시작
+     *
+     * Service 등록이 완료되면 onGattServerReady() 콜백이 호출됨
+     * 콜백 이후에 BLE Advertise를 시작해야 Race Condition 방지
+     */
+    fun startGattServer() {
+        if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled) {
+            Log.e(TAG, "Bluetooth is not available or not enabled")
+            callback.onGattServerReady(false, "Bluetooth is not available or not enabled")
+            return
+        }
+
+        try {
+            bluetoothGattServer = bluetoothManager.openGattServer(context, gattServerCallback)
+
+            if (bluetoothGattServer == null) {
+                Log.e(TAG, "Failed to open GATT server")
+                callback.onGattServerReady(false, "Failed to open GATT server (returned null)")
+                return
+            }
+
+            // Service 생성
+            val service = BluetoothGattService(
+                GattServiceConfig.SERVICE_UUID,
+                BluetoothGattService.SERVICE_TYPE_PRIMARY
+            )
+
+            // Write Characteristic 추가 (Scanner → Store)
+            val writeCharacteristic = BluetoothGattCharacteristic(
+                GattServiceConfig.CHAR_ORDER_WRITE_UUID,
+                GattServiceConfig.PROPERTY_WRITE,
+                GattServiceConfig.PERMISSION_WRITE
+            )
+            service.addCharacteristic(writeCharacteristic)
+
+            // Read Characteristic 추가 (Store → Scanner)
+            responseCharacteristic = BluetoothGattCharacteristic(
+                GattServiceConfig.CHAR_RESPONSE_READ_UUID,
+                GattServiceConfig.PROPERTY_READ,
+                GattServiceConfig.PERMISSION_READ
+            )
+            service.addCharacteristic(responseCharacteristic!!)
+
+            // Service를 GATT Server에 추가 (비동기)
+            // onServiceAdded 콜백에서 결과 확인
+            val result = bluetoothGattServer?.addService(service) ?: false
+
+            if (!result) {
+                Log.e(TAG, "Failed to initiate addService()")
+                callback.onGattServerReady(false, "Failed to initiate addService()")
+            } else {
+                Log.d(TAG, "addService() initiated, waiting for onServiceAdded callback...")
+                Log.d(TAG, "Service UUID: ${GattServiceConfig.SERVICE_UUID}")
+                Log.d(TAG, "Write Char UUID: ${GattServiceConfig.CHAR_ORDER_WRITE_UUID}")
+                Log.d(TAG, "Read Char UUID: ${GattServiceConfig.CHAR_RESPONSE_READ_UUID}")
+            }
+        } catch (e: SecurityException) {
+            Log.e(TAG, "Security exception starting GATT server", e)
+            callback.onGattServerReady(false, "Security exception: ${e.message}")
+        }
+    }
+
+    /**
+     * GATT Server 중지
+     */
+    fun stopGattServer() {
+        try {
+            bluetoothGattServer?.clearServices()
+            bluetoothGattServer?.close()
+            bluetoothGattServer = null
+            responseCharacteristic = null
+            Log.d(TAG, "GATT Server stopped")
+        } catch (e: SecurityException) {
+            Log.e(TAG, "Security exception stopping GATT server", e)
+        }
+    }
+
+    /**
+     * 응답 데이터 전송 (현재는 Read로 응답하므로 내부적으로 사용)
+     */
+    private fun setResponse(data: ByteArray) {
+        responseCharacteristic?.value = data
+        Log.d(TAG, "Response data set: ${String(data)}")
+    }
+
+    private val gattServerCallback = object : BluetoothGattServerCallback() {
+
+        override fun onServiceAdded(status: Int, service: BluetoothGattService) {
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+                Log.d(TAG, "✅ Service added successfully: ${service.uuid}")
+                Log.d(TAG, "GATT Server is ready. Safe to start advertising now.")
+                callback.onGattServerReady(true)
+            } else {
+                Log.e(TAG, "❌ Failed to add service: status=$status")
+                callback.onGattServerReady(false, "Failed to add service: status=$status")
+            }
+        }
+
+        override fun onConnectionStateChange(
+            device: BluetoothDevice,
+            status: Int,
+            newState: Int
+        ) {
+            try {
+                when (newState) {
+                    BluetoothProfile.STATE_CONNECTED -> {
+                        Log.d(TAG, "Client connected: ${device.address}")
+                        callback.onClientConnected(device)
+                    }
+                    BluetoothProfile.STATE_DISCONNECTED -> {
+                        Log.d(TAG, "Client disconnected: ${device.address}")
+                        callback.onClientDisconnected(device)
+                    }
+                }
+            } catch (e: SecurityException) {
+                Log.e(TAG, "Security exception in connection state change", e)
+            }
+        }
+
+        override fun onCharacteristicWriteRequest(
+            device: BluetoothDevice,
+            requestId: Int,
+            characteristic: BluetoothGattCharacteristic,
+            preparedWrite: Boolean,
+            responseNeeded: Boolean,
+            offset: Int,
+            value: ByteArray
+        ) {
+            val dataString = String(value, Charset.forName("UTF-8"))
+            Log.d(TAG, "Write request from ${device.address}")
+            Log.d(TAG, "Characteristic UUID: ${characteristic.uuid}")
+            Log.d(TAG, "Data: $dataString")
+
+            try {
+                if (characteristic.uuid == GattServiceConfig.CHAR_ORDER_WRITE_UUID) {
+                    // AT+CONNECT 명령어 확인
+                    if (dataString.trim().equals("AT+CONNECT", ignoreCase = true)) {
+                        Log.d(TAG, "AT+CONNECT command received")
+
+                        // 콜백 호출
+                        callback.onConnectCommandReceived(device)
+
+                        // 응답 설정
+                        val response = unifiedPacketData ?: OrderDataParser.createResponse(true, "Connected")
+                        setResponse(response)
+
+                        // Write 응답
+                        if (responseNeeded) {
+                            bluetoothGattServer?.sendResponse(
+                                device,
+                                requestId,
+                                BluetoothGatt.GATT_SUCCESS,
+                                offset,
+                                value
+                            )
+                        }
+                        return
+                    }
+
+                    // AT+DISCONNECT 명령어 확인
+                    if (dataString.trim().equals("AT+DISCONNECT", ignoreCase = true)) {
+                        Log.d(TAG, "AT+DISCONNECT command received")
+
+                        // 콜백 호출
+                        callback.onDisconnectCommandReceived(device)
+
+                        // 응답 설정
+                        val response = OrderDataParser.createResponse(true, "Disconnected")
+                        setResponse(response)
+
+                        // Write 응답
+                        if (responseNeeded) {
+                            bluetoothGattServer?.sendResponse(
+                                device,
+                                requestId,
+                                BluetoothGatt.GATT_SUCCESS,
+                                offset,
+                                value
+                            )
+                        }
+                        return
+                    }
+
+                    // order_id 파싱
+                    try {
+                        val orderRequest = OrderDataParser.parse(value)
+                        Log.d(TAG, "Order parsed - ID: ${orderRequest.orderId}")
+
+                        // 콜백 호출
+                        callback.onOrderReceived(orderRequest.orderId, orderRequest.additionalData)
+
+                        // 응답 설정
+                        val response = OrderDataParser.createResponse(true, "Order received")
+                        setResponse(response)
+
+                        // Write 응답
+                        if (responseNeeded) {
+                            bluetoothGattServer?.sendResponse(
+                                device,
+                                 requestId,
+                                BluetoothGatt.GATT_SUCCESS,
+                                offset,
+                                value
+                            )
+                        }
+                    } catch (e: IllegalArgumentException) {
+                        Log.e(TAG, "Failed to parse order data", e)
+
+                        // 에러 응답
+                        val errorResponse = OrderDataParser.createResponse(false, e.message ?: "Parse error")
+                        setResponse(errorResponse)
+
+                        if (responseNeeded) {
+                            bluetoothGattServer?.sendResponse(
+                                device,
+                                requestId,
+                                BluetoothGatt.GATT_FAILURE,
+                                offset,
+                                null
+                            )
+                        }
+                    }
+                } else {
+                    Log.w(TAG, "Unknown characteristic write: ${characteristic.uuid}")
+                    if (responseNeeded) {
+                        bluetoothGattServer?.sendResponse(
+                            device,
+                            requestId,
+                            BluetoothGatt.GATT_FAILURE,
+                            offset,
+                            null
+                        )
+                    }
+                }
+            } catch (e: SecurityException) {
+                Log.e(TAG, "Security exception in write request", e)
+            }
+        }
+
+        override fun onCharacteristicReadRequest(
+            device: BluetoothDevice,
+            requestId: Int,
+            offset: Int,
+            characteristic: BluetoothGattCharacteristic
+        ) {
+            Log.d(TAG, "Read request from ${device.address}")
+
+            try {
+                if (characteristic.uuid == GattServiceConfig.CHAR_RESPONSE_READ_UUID) {
+                    val response = unifiedPacketData
+                        ?: responseCharacteristic?.value
+                        ?: OrderDataParser.createResponse(true, "No data")
+
+                    bluetoothGattServer?.sendResponse(
+                        device,
+                        requestId,
+                        BluetoothGatt.GATT_SUCCESS,
+                        offset,
+                        response
+                    )
+                    Log.d(TAG, "Response sent: ${String(response)}")
+                } else {
+                    bluetoothGattServer?.sendResponse(
+                        device,
+                        requestId,
+                        BluetoothGatt.GATT_FAILURE,
+                        offset,
+                        null
+                    )
+                }
+            } catch (e: SecurityException) {
+                Log.e(TAG, "Security exception in read request", e)
+            }
+        }
+    }
+}

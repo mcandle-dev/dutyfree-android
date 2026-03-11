@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FA">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        android:background="@android:color/transparent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary_navy"
+                android:paddingBottom="32dp">
+
+                <!-- Header: Title and Bell Icon -->
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:text="면세점"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_bell"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:src="@android:drawable/ic_popup_reminder"
+                    app:tint="@color/gold_accent"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_title" />
+
+                <!-- Greeting Text -->
+                <TextView
+                    android:id="@+id/tv_greeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:text="안녕하세요 👋"
+                    android:textColor="#C3D4EC"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+                <TextView
+                    android:id="@+id/tv_user_name_greeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="4dp"
+                    android:text="KIM JOONHO 님"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_greeting" />
+
+                <!-- Duty Free Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_duty_free"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    app:cardBackgroundColor="#1A2D4A"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_user_name_greeting">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="20dp">
+
+                        <ImageView
+                            android:id="@+id/iv_airplane"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@android:drawable/ic_menu_send"
+                            app:tint="#849AC1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:letterSpacing="0.1"
+                            android:text="DUTY FREE"
+                            android:textColor="#849AC1"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_airplane"
+                            app:layout_constraintStart_toEndOf="@+id/iv_airplane"
+                            app:layout_constraintTop_toTopOf="@+id/iv_airplane" />
+
+                        <TextView
+                            android:id="@+id/tv_member_level_badge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_vip_badge"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp"
+                            android:text="👑 VIP"
+                            android:textColor="@color/primary_navy"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_card_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:text="JOONHO KIM"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/iv_airplane" />
+
+                        <TextView
+                            android:id="@+id/tv_card_membership"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="DF2023091234"
+                            android:textColor="#849AC1"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_card_name" />
+
+                        <View
+                            android:id="@+id/divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="16dp"
+                            android:background="#2E446B"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_card_membership" />
+
+                        <!-- Barcode Placeholder -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/divider"
+                            android:layout_marginTop="16dp">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="24dp"
+                                android:src="@android:drawable/ic_menu_sort_by_size"
+                                app:tint="@color/gold_accent" />
+
+                            <TextView
+                                android:id="@+id/tv_card_barcode_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:letterSpacing="0.2"
+                                android:text="DF 2023 0912 34"
+                                android:textColor="#849AC1"
+                                android:textSize="8sp" />
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="32dp">
+
+            <!-- Passport Information Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="#EDF2F7"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@android:drawable/ic_menu_agenda"
+                            app:tint="@color/primary_navy" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="여권 정보"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/lbl_passport_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="여권번호"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_passport_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="M12345678"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/lbl_passport_first_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="First Name"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lbl_passport_num" />
+
+                        <TextView
+                            android:id="@+id/tv_passport_first_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="JOONHO"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/lbl_passport_first_name" />
+
+                        <TextView
+                            android:id="@+id/lbl_passport_last_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Last Name"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lbl_passport_first_name" />
+
+                        <TextView
+                            android:id="@+id/tv_passport_last_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="KIM"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/lbl_passport_last_name" />
+
+                        <TextView
+                            android:id="@+id/lbl_passport_expiry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="여권 만료일"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lbl_passport_last_name" />
+
+                        <TextView
+                            android:id="@+id/tv_passport_expiry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2030-05-20"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/lbl_passport_expiry" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Departure Information Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="#E6F4EA"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@android:drawable/ic_menu_send"
+                            app:tint="@color/success_green" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="출국 정보"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/lbl_airline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="항공사"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_airline_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="대한항공 (KE)"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/lbl_flight_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="편명"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lbl_airline" />
+
+                        <TextView
+                            android:id="@+id/tv_flight_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="KE123"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/lbl_flight_num" />
+
+                        <TextView
+                            android:id="@+id/lbl_departure_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="출국시간"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lbl_flight_num" />
+
+                        <TextView
+                            android:id="@+id/tv_departure_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14:30"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/lbl_departure_time" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

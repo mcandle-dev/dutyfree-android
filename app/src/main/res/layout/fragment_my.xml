@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface_bg"
+    tools:context=".ui.screens.MyFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:title="여권 / 출국 정보 설정"
+            app:titleTextColor="@color/text_primary"
+            app:navigationIconTint="@color/text_primary" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="80dp">
+
+            <!-- Membership Info Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#FFE082">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="#FFFDE7">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_nav_my"
+                            app:tint="@color/primary_navy" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="멤버십 정보"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#855C00" />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="28dp"
+                        android:text="VIP 멤버십 회원 정보를 등록하세요"
+                        android:textSize="12sp"
+                        android:textColor="#A1887F" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 이름 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="이름 *"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="4dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_member_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="이름을 입력하세요"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 회원번호 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="회원번호 *"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="4dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_membership_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="회원번호를 입력하세요"
+                    android:inputType="textCapCharacters" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 회원등급 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="회원등급 *"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="4dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_member_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="VIP"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 전화번호 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="전화번호 *"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="4dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="010-0000-0000"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Passport Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#BBDEFB">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="#E3F2FD">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_nav_card"
+                            app:tint="@color/primary_navy" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="여권 정보 (필수)"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_navy" />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="28dp"
+                        android:text="BLE 연결 시 VPOS로 자동 전송됩니다"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="여권번호 *"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_passport_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="9" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:hint="First Name *"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName|textCapCharacters" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Last Name *"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName|textCapCharacters" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:hint="여권 만료일 *"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_expiry_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:inputType="none" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Flight Section -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="#C8E6C9">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="#E8F5E9">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_flight"
+                            app:tint="@color/success_green" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="출국 정보 (선택)"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/success_green" />
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="28dp"
+                        android:text="항공편 변경 시 업데이트가 필요합니다"
+                        android:textSize="12sp"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="항공사"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp">
+                <AutoCompleteTextView
+                    android:id="@+id/spinner_airline"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:hint="편명"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_flight_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapCharacters" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="출국시간"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_departure_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="32dp"
+                android:text="정보 저장하기"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/primary_navy" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

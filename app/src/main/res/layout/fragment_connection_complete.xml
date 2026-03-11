@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F6F8">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:title="연결 완료"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivSuccess"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@android:drawable/ic_dialog_info"
+        app:tint="@color/success_green"
+        app:layout_constraintBottom_toTopOf="@id/tvMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginBottom="24dp"/>
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POS 단말기와 연결되었습니다."
+        android:textColor="@color/primary_navy"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tvSubMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivSuccess" />
+
+    <TextView
+        android:id="@+id/tvSubMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="잠시만 기다려주세요..."
+        android:textColor="#888888"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMessage" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

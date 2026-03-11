@@ -1,0 +1,2479 @@
+✈
+
+공항
+
+면세점
+ BLE 
+고객
+
+앱
+화면
+
+흐름도
+ & 
+화면
+
+설계
+
+설명서
+Figma Make · Design System for App  (uWcyNnBhEFEUKZQkbrkjGp)
+플랫폼
+: Android / iOS
+화면
+
+수
+: 5
+개
+ (C-01~C-05)
+버전
+: v1.4
+작성일
+: 2025-03-10
+프로젝트
+공항
+
+면세점
+ BLE 
+기반
+
+고객
+
+인식
+
+시스템
+Figma URL
+https://www.figma.com/make/uWcyNnBhEFEUKZQkbrkjGp/Design-System-for-App
+기술
+
+스택
+React + TypeScript · Tailwind CSS · shadcn/ui · Vite
+BLE 
+통신
+EFR32BG22 · AT Command · GATT Client/Server · UART /dev/ttyS1 @ 115200
+연관
+
+문서
+UserJourney_DutyFree_BLE_v1.4.md  /  PRD_DutyFree_BLE_v1.4.md
+1. 
+디자인
+
+시스템
+ (Figma Make 
+기준
+)
+Figma Make 
+파일에서
+
+추출한
+
+컬러
+
+토큰
+, 
+타이포그래피
+, 
+공통
+
+컴포넌트를
+
+정의합니다
+.
+1.1 
+컬러
+
+토큰
+토큰명
+HEX
+사용처
+토큰명
+HEX
+사용처
+Primary Navy
+#0B1F3A
+AppBar / 
+버튼
+ / 
+헤더
+Success Green
+#2E7D55
+완료
+
+상태
+ / 
+체크
+Navy Mid
+#1A3558
+카드
+
+배경
+ / 
+그라디언트
+Amber Warning
+#B45309
+경고
+
+배지
+Navy Light
+#234878
+BLE Ripple / 
+보조색
+Sky Blue Info
+#0369A1
+정보
+
+안내
+
+영역
+Gold Accent
+#C9A84C
+VIP 
+배지
+ / 
+포인트
+Surface
+#F5F7FA
+배경
+ / 
+섹션
+
+구분
+Gold Light
+#F0D080
+아이콘
+
+강조
+ / CTA
+Border
+#E2E8F0
+카드
+
+테두리
+Text Primary
+#0B1F3A
+본문
+
+주요
+
+텍스트
+Text Secondary
+#64748B
+라벨
+ / 
+설명
+1.2 
+타이포그래피
+스타일
+Font
+크기
+·Weight
+사용
+
+위치
+Display Title
+DM Sans
+26sp / Bold
+Hero 
+섹션
+
+이름
+ · 
+앱
+
+타이틀
+Headline
+DM Sans
+22sp / Bold
+결제
+
+금액
+ · 
+완료
+
+상태
+
+메인
+
+텍스트
+Title
+DM Sans
+17sp / SemiBold
+AppBar 
+제목
+ · 
+카드
+
+헤더
+Body
+Noto Sans KR
+14sp / Regular
+본문
+
+설명
+ · 
+입력값
+
+표시
+Label
+Noto Sans KR
+12sp / Medium
+입력
+
+필드
+
+레이블
+ · 
+배지
+Caption
+Noto Sans KR
+11sp / Regular
+타임스탬프
+ · 
+보조
+
+안내
+1.3 
+공통
+
+컴포넌트
+컴포넌트
+
+파일
+역할
+사용
+
+화면
+status-bar.tsx
+시스템
+
+상태
+
+바
+ (
+시간
+/
+배터리
+)
+전
+
+화면
+app-bar.tsx
+상단
+
+내비게이션
+
+바
+전
+
+화면
+bottom-nav.tsx
+하단
+
+탭
+
+내비
+ (
+홈
+/
+카드
+/
+혜택
+/MY)
+C-01, C-03
+vip-membership-card.tsx
+VIP 
+멤버십
+
+카드
+ (Gold gradient)
+C-01, C-03
+product-card.tsx
+상품
+
+프로모션
+
+카드
+C-01
+section-header.tsx
+섹션
+
+구분
+
+레이블
+C-01, C-02, C-03
+category-chip.tsx
+카테고리
+
+필터
+
+칩
+C-01
+ui/button.tsx
+Primary / Outline 
+버튼
+전
+
+화면
+ui/input.tsx
+텍스트
+
+입력
+
+필드
+C-02
+ui/select.tsx
+드롭다운
+
+선택
+C-02
+ui/badge.tsx
+상태
+
+배지
+ (
+등록됨
+/
+경고
+
+등
+)
+C-01, C-02, C-03
+ui/card.tsx
+카드
+
+컨테이너
+전
+
+화면
+ui/dialog.tsx
+모달
+
+다이얼로그
+ (
+예외
+
+처리
+)
+ERR 
+화면
+2. 
+화면
+
+흐름
+
+요약
+2.1 
+전체
+
+화면
+
+목록
+ID
+화면명
+파일
+ / 
+클래스
+진입
+
+조건
+이동
+
+화면
+C-01
+홈
+
+화면
+home-screen.tsx / HomeFragment
+앱
+
+실행
+ · 
+로그인
+
+완료
+C-02, C-03
+C-02
+여권
+·
+출국
+
+정보
+
+등록
+passport-screen.tsx / PassportSettingActivity
+MY → 
+설정
+ → 
+여권
+/
+출국
+
+관리
+C-01 (
+저장
+
+후
+ Back)
+C-03
+카드
+
+탭
+ BLE
+card-ble-screen.tsx / CardFragment
+[
+카드
+] 
+탭
+
+선택
+ → 
+즉시
+ Advertise
+C-04 (GATT 
+연결
+
+완료
+)
+C-04
+매장
+
+연결
+
+완료
+connection-complete-screen.tsx / ConnectedFragment
+GATT 
+연결
+ + Write 
+완료
+C-05 (Push 
+수신
+)
+C-05
+결제
+
+완료
+
+알림
+payment-complete-screen.tsx / PurchaseCompleteFragment
+결제
+
+완료
+ Push
+C-01 (
+홈으로
+)
+2.2 BLE 
+연결
+ & 
+출국정보
+
+분기
+
+흐름
+C-03 
+카드
+
+탭
+  →  BLE Advertise 
+송출
+ (
+이름
+|
+전화끝
+4)
+          ↓  
+직원이
+ VPOS 
+목록에서
+
+고객
+
+선택
+  →  GATT Connect
+          ↓  onConnectionStateChange(CONNECTED)  →  MTU 
+협상
+
+완료
+          ↓  Write Characteristic  (
+통합
+
+패킷
+ 1
+회
+, 65 bytes)
+     [
+출국
+
+정보
+
+등록됨
+]  →  
+통합
+
+패킷
+ P4~P6 
+있음
+  →  C-04 
+자동
+
+이동
+     [
+출국
+
+정보
+
+미등록
+]  →  P4~P6 
+빈값
+  →  C-04 
+이동
+ (
+직원
+ VPOS
+에서
+
+수동
+
+입력
+)
+     [BLE 
+연결
+
+실패
+ 10
+초
+]  →  
+재시도
+
+다이얼로그
+  →  C-03 
+복귀
+C-01
+홈
+
+화면
+  (HomeFragment)
+기본
+
+정보
+화면
+ ID
+C-01
+화면명
+홈
+
+화면
+Fragment
+HomeFragment  /  home-screen.tsx
+진입
+
+조건
+앱
+
+최초
+
+실행
+ · 
+로그인
+
+완료
+ · 
+타
+
+화면에서
+
+홈
+
+복귀
+다음
+
+화면
+C-02 (
+여권
+
+설정
+
+메뉴
+) · C-03 (
+카드
+
+탭
+
+선택
+)
+상태
+
+바
+다크
+
+모드
+  |  BG #0B1F3A  |  White 
+아이콘
+하단
+
+탭
+bottom-nav.tsx  —  
+활성
+: 
+홈
+  (
+상단
+ 3dp Navy 
+인디케이터
+)
+화면
+
+레이아웃
+#
+영역
+컴포넌트
+내용
+비고
+/
+상태
+1
+Status Bar
+status-bar.tsx
+시간
+ · 
+신호
+ · 
+배터리
+다크
+
+모드
+ White 
+아이콘
+2
+AppBar
+app-bar.tsx
+'
+면세점
+' 18sp Bold White  |  
+우측
+
+알림
+
+아이콘
+ #F0D080
+Navy BG #0B1F3A
+3
+Hero Section
+—
+Gradient BG #0B1F3A→#1A3558  |  
+인사말
+ + 
+고객명
+ + 
+멤버십
+
+카드
+ScrollView 
+최상단
+4
+VIP 
+멤버십
+
+카드
+vip-membership-card.tsx
+Navy Dark Gradient  |  
+이름
+ · 
+번호
+ · VIP
+배지
+ · 
+포인트
+ · 
+바코드
+풀
+
+컴포넌트
+5
+출국
+
+정보
+
+요약
+ui/card.tsx + ui/badge.tsx
+✈
+
+아이콘
+  |  
+항공편
+ KE123 · 14:30  |  '
+등록됨
+' 
+성공
+
+배지
+성공
+: Green / 
+미등록
+: Amber
+6
+빠른
+
+메뉴
+ 2×2
+section-header + Grid Button
+💳
+
+멤버십
+
+카드
+ / 
+🎁
+ VIP 
+혜택
+ / 
+📋
+
+구매
+
+내역
+ / 
+📘
+
+여권
+
+설정
+Rounded 12dp White Card
+7
+프로모션
+
+배너
+product-card.tsx
+Dark Navy Card  |  'LIMITED OFFER'  |  VIP 5% 
+할인
+ Gold CTA
+가로
+
+스크롤
+
+가능
+8
+Bottom Nav
+bottom-nav.tsx
+홈
+(
+활성
+) / 
+카드
+ / 
+혜택
+ / MY  — 
+활성
+
+상단
+
+인디케이터
+ 3dp
+BG White  Shadow 
+상단
+인터랙션
+액션
+대상
+결과
+탭
+카드
+
+탭
+ (
+하단
+
+내비
+)
+C-03 CardFragment
+로
+
+이동
+탭
+여권
+
+설정
+
+퀵메뉴
+C-02 PassportSettingActivity 
+실행
+탭
+멤버십
+
+카드
+
+퀵메뉴
+C-03 CardFragment
+로
+
+이동
+스크롤
+전체
+
+화면
+세로
+
+스크롤
+ (NestedScrollView)
+탭
+알림
+
+아이콘
+알림
+
+센터
+
+표시
+ (
+미구현
+ → Toast)
+C-02
+여권
+·
+출국
+
+정보
+
+등록
+  (PassportSettingActivity)
+기본
+
+정보
+화면
+ ID
+C-02
+화면명
+여권
+ · 
+출국
+
+정보
+
+설정
+Activity
+PassportSettingActivity  /  passport-screen.tsx
+진입
+
+조건
+C-01 
+퀵메뉴
+ [
+여권
+
+설정
+] 
+또는
+ MY → 
+설정
+ → 
+여권
+/
+출국
+
+정보
+
+관리
+다음
+
+화면
+C-01 (
+저장
+
+완료
+
+후
+ Back 
+스택
+
+복귀
+)
+AppBar
+Light 
+모드
+  |  White BG  |  
+뒤로가기
+
+아이콘
+  |  
+제목
+: '
+여권
+ / 
+출국
+
+정보
+
+설정
+'
+저장
+
+방식
+로컬
+
+암호화
+
+저장
+  (SharedPreferences + Android Keystore)
+화면
+
+레이아웃
+#
+영역
+컴포넌트
+내용
+비고
+/
+상태
+1
+Status Bar
+status-bar.tsx
+Light 
+모드
+ (White BG / 
+다크
+
+텍스트
+)
+2
+AppBar
+app-bar.tsx
+Light 
+모드
+ + 
+뒤로가기
+
+버튼
+3
+여권
+
+섹션
+
+헤더
+section-header.tsx
+BG #EFF4FF  |  Border-Left 4dp #234878  |  '
+여권
+
+정보
+ (
+필수
+)'
+필수
+
+섹션
+4
+여권번호
+
+입력
+ui/input.tsx
+Label: '
+여권번호
+ *'  |  Placeholder: M12345678  |  
+자동
+
+대문자
+최대
+ 9
+자
+5
+이름
+
+입력
+ 2
+열
+ui/input.tsx × 2
+First Name* (JOONHO)  |  Last Name* (KIM)  — Grid 2
+열
+영문
+
+자동
+
+대문자
+6
+만료일
+
+입력
+ui/input.tsx
+Label: '
+여권
+
+만료일
+ *'  |  type=date  |  
+오늘
+
+이후
+
+날짜
+
+제한
+DatePicker
+7
+섹션
+
+구분선
+—
+높이
+ 8dp  BG #F5F7FA
+8
+출국
+
+섹션
+
+헤더
+section-header.tsx
+BG #EDFAF3  |  Border-Left 4dp #2E7D55  |  '
+출국
+
+정보
+ (
+선택
+)'
+선택
+
+섹션
+9
+항공사
+
+드롭다운
+ui/select.tsx
+KE 
+대한항공
+ / OZ 
+아시아나
+ / LJ 
+진에어
+ / 7C 
+제주항공
+ / TW 
+티웨이
+10
+편명
+ + 
+출국시간
+ 2
+열
+ui/input.tsx × 2
+편명
+ (KE123)  |  
+출국시간
+ type=time (14:30)
+11
+경고
+
+배너
+ui/alert.tsx
+⚠
+ BG #FEF3C7  |  '
+항공편
+
+변경
+
+시
+
+업데이트
+
+필요
+' 12sp Amber
+12
+BLE 
+패킷
+
+미리보기
+ui/card.tsx
+Code Box BG #F5F7FA  |  
+패킷
+
+포맷
+
+실시간
+
+미리보기
+13
+저장
+
+버튼
+ui/button.tsx
+Primary Full-width 52dp  |  Navy Gradient  |  '
+저장하기
+'
+유효성
+
+통과
+
+시
+
+활성
+입력
+
+유효성
+
+검사
+필드
+필수
+형식
+
+규칙
+오류
+
+메시지
+여권번호
+✅
+
+필수
+영문
++
+숫자
+
+최대
+ 9
+자
+ · 
+자동
+
+대문자
+여권번호를
+
+입력하세요
+First Name
+✅
+
+필수
+영문만
+ · 
+자동
+
+대문자
+이름을
+
+입력하세요
+Last Name
+✅
+
+필수
+영문만
+ · 
+자동
+
+대문자
+성을
+
+입력하세요
+만료일
+✅
+
+필수
+오늘
+
+이후
+
+날짜
+ (YYMMDD)
+유효한
+
+여권
+
+만료일을
+
+입력하세요
+항공사
+⬜
+
+선택
+IATA 2
+자리
+
+선택
+—
+편명
+⬜
+
+선택
+영문
++
+숫자
+—
+출국시간
+⬜
+
+선택
+HH:MM
+—
+C-03
+카드
+
+탭
+ — BLE Advertise  (CardFragment)
+기본
+
+정보
+화면
+ ID
+C-03
+화면명
+카드
+
+탭
+ — BLE Advertise 
+송출
+Fragment
+CardFragment  /  card-ble-screen.tsx
+진입
+
+조건
+하단
+
+내비게이션
+ [
+카드
+] 
+탭
+
+선택
+
+즉시
+자동
+
+동작
+진입
+
+즉시
+ BLE Advertising 
+자동
+
+시작
+ (Bluetooth 
+권한
+
+확인
+
+후
+)
+Advertise
+패킷
+: JOONHO KIM|5678  (
+이름
+|
+전화끝
+4
+자리
+)
+다음
+
+화면
+C-04 (GATT 
+연결
+ + Write 
+완료
+
+시
+
+자동
+
+전환
+)
+하단
+
+탭
+bottom-nav.tsx  —  
+활성
+: 
+카드
+화면
+
+레이아웃
+#
+영역
+컴포넌트
+내용
+비고
+/
+상태
+1
+Status Bar
+status-bar.tsx
+다크
+
+모드
+ (Navy BG)
+2
+AppBar
+app-bar.tsx
+'
+내
+
+멤버십
+
+카드
+' 17sp Bold White
+Navy BG
+3
+Hero 
+멤버십
+
+카드
+vip-membership-card.tsx
+Navy→NavyMid Gradient  |  
+이름
+/
+번호
+/VIP/
+포인트
+/
+바코드
+
+풀
+
+표시
+스크롤
+
+고정
+4
+BLE 
+상태
+
+패널
+ui/card.tsx
+White Card  |  BLE Pulse 
+애니
+ + '
+주변
+
+매장
+
+신호
+
+송출
+
+중
+...'
+Rounded 16dp
+5
+BLE Pulse 
+그래픽
+— (Animated)
+중심
+ Navy 
+원
+ (BT
+아이콘
+ #F0D080) + 3
+개
+ Ripple 
+동심원
+2
+초
+
+주기
+ ease-out
+6
+전송
+
+준비
+
+체크리스트
+section-header + Card
+🛂
+
+여권
+
+정보
+ ✓  /  ✈ 
+출국
+
+정보
+ ✓  /  
+💳
+
+멤버십
+ ✓
+각
+
+행
+
+상태
+
+아이콘
+7
+Advertise 
+패킷
+
+카드
+ui/card.tsx
+'ADVERTISE 
+패킷
+' 
+레이블
+  |  Code Box: JOONHO KIM|5678
+Gold 
+배지
+ '
+송출
+
+중
+'
+8
+매장
+
+연결
+
+버튼
+ui/button.tsx
+Primary '
+🔗
+
+매장
+
+연결
+
+시뮬레이션
+' → C-04 
+수동
+
+테스트
+
+이동
+개발
+/
+테스트용
+9
+Bottom Nav
+bottom-nav.tsx
+카드
+(
+활성
+) 
+탭
+BLE 
+동작
+
+명세
+이벤트
+동작
+구현
+
+비고
+화면
+
+진입
+BLE Advertising 
+자동
+
+시작
+권한
+
+없으면
+
+권한
+
+요청
+
+다이얼로그
+
+먼저
+화면
+
+이탈
+ / onPause
+BLE Advertising 
+중지
+배터리
+
+절약
+
+및
+
+오연결
+
+방지
+GATT Connected
+MTU 
+협상
+
+시작
+onMtuChanged 
+콜백
+
+대기
+onMtuChanged
+통합
+
+패킷
+ Write 
+시작
+65 bytes 
+단일
+
+패킷
+
+전송
+Write 
+완료
+C-04 
+자동
+
+전환
+runOnUiThread { navTo(C04) }
+연결
+
+실패
+ (10
+초
+)
+재시도
+
+다이얼로그
+
+표시
+ui/dialog.tsx  →  [
+재시도
+] or [
+취소
+]
+C-04
+매장
+
+연결
+
+완료
+  (ConnectedFragment)
+기본
+
+정보
+화면
+ ID
+C-04
+화면명
+매장
+
+연결
+
+완료
+Fragment
+ConnectedFragment  /  connection-complete-screen.tsx
+진입
+
+조건
+C-03
+에서
+ GATT 
+연결
+
+성공
+ + 
+통합
+
+패킷
+ Write 
+완료
+
+시
+
+자동
+
+이동
+다음
+
+화면
+C-05 (VPOS Push Notification 
+수신
+) · C-03 (
+연결
+
+해제
+
+버튼
+)
+AppBar
+다크
+
+모드
+  |  '
+매장
+
+연결
+' 17sp Bold White
+화면
+
+레이아웃
+#
+영역
+컴포넌트
+내용
+비고
+/
+상태
+1
+Status Bar
+status-bar.tsx
+다크
+
+모드
+2
+AppBar
+app-bar.tsx
+다크
+ + '
+매장
+
+연결
+'
+3
+성공
+ Hero 
+배너
+—
+Gradient #2E7D55→#1A5C38  |  
+체크
+
+아이콘
+(#F0D080) 76dp  |  '
+매장
+
+연결
+
+완료
+'
+Green Gradient
+4
+매장
+
+정보
+
+카드
+ui/card.tsx
+🏪
+ Navy BG 
+아이콘
+
+컨테이너
+  |  
+매장명
+ '
+인천공항
+ T1 
+롤렉스
+'  |  
+담당자명
+White Card 16dp
+5
+전송
+
+체크리스트
+ui/card.tsx
+3
+행
+: 
+멤버십
+ / 
+여권
+ / 
+출국
+  —  Staggered 
+체크
+
+애니메이션
+400/900/1400ms
+6
+대기
+
+상태
+
+박스
+—
+BG #F5F7FA  |  '
+직원이
+
+정보를
+
+확인
+
+중입니다
+'  |  3
+개
+ Bounce Dot 
+애니
+무한
+
+반복
+7
+결제
+
+완료
+
+시뮬버튼
+ui/button.tsx
+Green Gradient 52dp  |  '
+💳
+
+결제
+
+완료
+
+시뮬레이션
+'  →  C-05
+개발
+/
+테스트용
+8
+연결
+
+해제
+
+버튼
+ui/button.tsx
+Outline 44dp  |  '
+연결
+
+해제
+'  →  C-03 
+복귀
+체크리스트
+
+애니메이션
+
+타이밍
+순서
+항목
+지연
+색상
+
+전환
+1
+멤버십
+
+정보
+
+전송
+
+완료
+400ms 
+후
+Grey #E2E8F0 → Green #2E7D55
+2
+여권
+
+정보
+
+전송
+
+완료
+900ms 
+후
+Grey → Green
+3
+출국
+
+정보
+
+전송
+
+완료
+1400ms 
+후
+Grey → Green
+C-05
+결제
+
+완료
+
+알림
+  (PurchaseCompleteFragment)
+기본
+
+정보
+화면
+ ID
+C-05
+화면명
+결제
+
+완료
+
+알림
+Fragment
+PurchaseCompleteFragment  /  payment-complete-screen.tsx
+진입
+
+조건
+VPOS 
+오프라인
+
+카드
+
+결제
+
+완료
+
+후
+ Push Notification 
+수신
+다음
+
+화면
+C-01 (
+홈으로
+
+버튼
+)
+AppBar
+다크
+
+모드
+  |  '
+결제
+
+완료
+' 17sp Bold White
+화면
+
+레이아웃
+#
+영역
+컴포넌트
+내용
+비고
+/
+상태
+1
+Status Bar
+status-bar.tsx
+다크
+
+모드
+2
+AppBar
+app-bar.tsx
+다크
+ + '
+결제
+
+완료
+'
+3
+성공
+ Hero
+—
+3
+색
+ Gradient (Navy→NavyMid→Green)  |  
+금색
+
+체크
+
+아이콘
+  |  '
+결제
+
+완료
+!'
+4
+금액
+ Pill
+—
+BG rgba(255,255,255,0.12) Backdrop Blur  |  '12,207,500
+원
+' 26sp Bold White
+Glassmorphism
+5
+결제
+
+정보
+
+카드
+ui/card.tsx
+상품명
+ / 
+여권번호
+(
+마스킹
+) / 
+항공편
+ / 
+정가
+ / VIP
+할인
+ / 
+최종금액
+ / 
+카드사
+·
+승인
+8
+행
+
+테이블
+6
+포인트
+
+적립
+
+카드
+ui/card.tsx
+Gold Gradient BG  |  
+🏆
+
+아이콘
+  |  '+12,850P'  |  
+누적
+ 270,850P
+#FEFCE8→#FEF9C3
+7
+수령
+
+안내
+
+배너
+—
+Sky BG #E0F2FE  |  
+📦
+
+아이콘
+  |  '
+매장
+
+현장
+
+즉시
+
+수령
+'
+8
+전자
+
+영수증
+
+버튼
+ui/button.tsx
+Outline 46dp  '
+📄
+
+전자
+
+영수증
+
+보기
+'  — 
+토글
+
+펼치기
+/
+접기
+Collapsible
+9
+영수증
+
+펼침
+
+영역
+— (Collapsible)
+BG #F5F7FA  |  
+거래번호
+/
+여권
+/
+항공
+/
+상품
+/
+할인
+/
+결제
+
+상세
+
+텍스트
+10
+홈으로
+
+버튼
+ui/button.tsx
+Primary Full-width 52dp  |  Navy Gradient  |  '
+홈으로
+'  →  C-01
+결제
+
+정보
+
+카드
+
+행
+
+상세
+레이블
+값
+
+예시
+스타일
+상품명
+롤렉스
+
+서브마리너
+
+데이트
+14sp Regular #0B1F3A
+여권번호
+M*****678
+14sp Regular — 
+마스킹
+
+처리
+항공편
+KE123 / 14:30
+14sp Regular
+정가
+12,850,000
+원
+14sp Regular
+VIP 5% 
+할인
+-642,500
+원
+14sp Regular #2E7D55 (
+녹색
+)
+최종
+
+결제금액
+12,207,500
+원
+20sp Bold #0B1F3A  |  Border-Top 2dp Navy
+카드사
+현대카드
+ ****-1234
+11sp #94A3B8 (Hint)
+승인번호
+87654321
+11sp #94A3B8 (Hint)
+8. 
+핵심
+
+컴포넌트
+
+상세
+
+스펙
+8.1 VIP 
+멤버십
+
+카드
+  (vip-membership-card.tsx)
+배경
+ Gradient
+gradient(135deg, #0B1F3A 0%, #162D50 50%, #0E2240 100%)  +  Shine Overlay: 
+좌상단
+ white opacity 4%
+행
+ 1 (
+상단
+)
+✈
+ DUTY FREE  10sp Bold tracking 2.5px white/50%   +   
+👑
+ VIP 
+배지
+ (Gold Gradient)
+행
+ 2 (
+이름
+)
+JOONHO KIM  20sp Bold White  letter-spacing -0.3px
+행
+ 3 (
+번호
+)
+DF2023091234  11sp white/45%
+구분선
+1dp white/10% full-width
+행
+ 4 (
+포인트
+)
+258,000P  22sp Bold #F0D080   +   
+바코드
+
+그래픽
+ (Gold 
+라인
+, 
+우측
+
+정렬
+)
+행
+ 5 (
+카드번호
+)
+DF 2023 0912 34  9sp tracking 4px white/25% 
+가운데
+
+정렬
+Compact 
+모드
+행
+ 4~5 
+생략
+, 
+높이
+
+축소
+ — C-01 
+빠른
+
+메뉴
+
+영역에
+
+사용
+8.2 BLE Pulse 
+애니메이션
+  (C-03 
+전용
+)
+중심
+
+원
+지름
+ 46dp  |  BG gradient(135deg, #0B1F3A, #1A3558)  |  BT
+아이콘
+ 22dp #F0D080
+Glow 
+효과
+box-shadow: 0 6dp 24dp #0B1F3A66  |  2
+초
+
+주기
+ pulse
+Ripple Ring 1
+지름
+ 74dp  |  border 2dp #234878  |  opacity 60%  |  delay 0s
+Ripple Ring 2
+지름
+ 98dp  |  border 1.5dp #234878  |  opacity 35%  |  delay 0.6s
+Ripple Ring 3
+지름
+ 120dp  |  border 1dp #234878  |  opacity 15%  |  delay 1.2s
+애니메이션
+scale(0.4 → 2.4) + opacity(0.7 → 0) / 2
+초
+
+주기
+ / ease-out / 
+무한
+
+반복
+8.3 Bottom Navigation Bar  (bottom-nav.tsx)
+탭
+ ID
+아이콘
+레이블
+활성
+
+색상
+비활성
+
+색상
+home
+Home
+홈
+#0B1F3A  |  
+상단
+ 3dp 
+인디케이터
+
+바
+#94A3B8
+card
+Credit Card
+카드
+#0B1F3A  |  
+상단
+ 3dp 
+인디케이터
+
+바
+#94A3B8
+benefit
+Dollar Sign
+혜택
+#0B1F3A  |  
+상단
+ 3dp 
+인디케이터
+
+바
+#94A3B8
+my
+Person/User
+MY
+#0B1F3A  |  
+상단
+ 3dp 
+인디케이터
+
+바
+#94A3B8
+9. 
+예외
+ · 
+오류
+
+화면
+
+처리
+코드
+조건
+UI 
+처리
+복구
+
+액션
+ERR-01
+Bluetooth 
+권한
+
+미허용
+ui/dialog.tsx  |  
+권한
+
+요청
+
+안내
+
+모달
+[
+설정으로
+
+이동
+]
+ERR-02
+BLE 
+연결
+
+타임아웃
+ 10
+초
+Toast '
+연결에
+
+실패했습니다
+'
+[
+재시도
+] 
+버튼
+ → C-03 
+복귀
+ERR-03
+Write Characteristic 
+실패
+1
+회
+
+자동
+
+재시도
+ → 
+실패
+
+시
+ Toast 
+표시
+C-03 
+복귀
+ERR-04
+GATT 
+연결
+
+중
+
+끊김
+연결
+
+해제
+ Toast  |  
+수신
+
+완료
+
+여부
+
+확인
+C-03 
+복귀
+
+또는
+ C-04 
+유지
+ERR-05
+여권
+
+정보
+
+미등록
+
+후
+
+카드
+
+탭
+'
+여권
+
+정보를
+
+먼저
+
+등록해주세요
+' 
+인라인
+
+안내
+[
+여권
+
+설정
+] 
+버튼
+ → C-02
+ERR-06
+Push 
+알림
+
+수신
+
+실패
+C-04 
+화면
+
+유지
+  |  Pull-to-Refresh 
+안내
+수동
+
+새로고침
+10. Figma Make 
+소스
+
+구조
+파일
+
+키
+: uWcyNnBhEFEUKZQkbrkjGp  |  URL: https://www.figma.com/make/uWcyNnBhEFEUKZQkbrkjGp/Design-System-for-App
+파일
+
+경로
+설명
+src/app/App.tsx
+앱
+
+진입점
+ & 
+라우팅
+src/app/screens/home-screen.tsx
+C-01 
+홈
+
+화면
+src/app/screens/passport-screen.tsx
+C-02 
+여권
+·
+출국
+
+정보
+
+등록
+src/app/screens/card-ble-screen.tsx
+C-03 
+카드
+
+탭
+ BLE Advertise
+src/app/screens/connection-complete-screen.tsx
+C-04 
+매장
+
+연결
+
+완료
+src/app/screens/payment-complete-screen.tsx
+C-05 
+결제
+
+완료
+
+알림
+src/app/components/vip-membership-card.tsx
+VIP 
+멤버십
+
+카드
+
+재사용
+
+컴포넌트
+src/app/components/status-bar.tsx
+상태
+
+바
+src/app/components/app-bar.tsx
+상단
+
+내비게이션
+src/app/components/bottom-nav.tsx
+하단
+
+탭
+
+내비게이션
+src/app/components/product-card.tsx
+상품
+
+카드
+src/app/components/section-header.tsx
+섹션
+
+구분
+
+헤더
+src/app/components/category-chip.tsx
+카테고리
+
+필터
+
+칩
+src/app/components/ui/
+shadcn/ui 
+공통
+
+컴포넌트
+ (button, card, input, select, badge, dialog, alert 
+등
+)
+src/styles/theme.css
+CSS 
+변수
+ — 
+컬러
+
+토큰
+ · 
+간격
+
+정의
+src/styles/tailwind.css
+Tailwind CSS 
+커스터마이징
+src/styles/fonts.css
+DM Sans + Noto Sans KR 
+폰트
+guidelines/Guidelines.md
+디자인
+
+가이드라인
+
+문서
+─────────────────────────────────────────────────────
+작성
+: 2025-03-10   |   
+버전
+: v1.4   |   Figma Make: uWcyNnBhEFEUKZQkbrkjGp
+연관
+: UserJourney_DutyFree_BLE_v1.4.md  /  PRD_DutyFree_BLE_v1.4.md  /  BLE_DutyFree_Screen_Spec_v1.4.docx
